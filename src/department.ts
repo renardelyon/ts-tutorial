@@ -9,7 +9,10 @@ class Departement {
     }
 
     describe(this: Departement) {
-        console.log(`Name of the departement ${this.name}`);
+        return {
+            name: this.name,
+            id: this.id
+        };
     }
 
     addEmployee(this: Departement, name: string | string[]) {
@@ -24,7 +27,7 @@ class Departement {
     }
 
     employeeInformation(this: Departement) {
-        console.log(this.employees);
+        return this.employees;
     }
 
 }
@@ -70,14 +73,14 @@ class AccountingDepartment extends Departement {
         }     
     }
 
-    printReports(this: AccountingDepartment) {
-        console.log(`reports: ${this.reports}`)
+    returnReports(this: AccountingDepartment) {
+        return this.reports
     }
 }
 
-const accounting = new AccountingDepartment('rta-15');
-accounting.addEmployee(['max', 'djoko', 'priscilla']);
-accounting.describe();
-accounting.employeeInformation();
-accounting.addReports(['hola',  ])
+export {
+    AccountingDepartment,
+    ITDepartement
+}
+
 
