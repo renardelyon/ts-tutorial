@@ -1,0 +1,23 @@
+{
+  "name": "ts-tutorial",
+  "version": "1.0.0",
+  "description": "TS tutorial",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "tsc --watch"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/renardelyon/ts-tutorial.git"
+  },
+  "keywords": [
+    "typescript"
+  ],
+  "author": "Renard Elyon",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/renardelyon/ts-tutorial/issues"
+  },
+  "homepage": "https://github.com/renardelyon/ts-tutorial#readme"
+}
