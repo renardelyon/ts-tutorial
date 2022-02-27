@@ -1,86 +1,119 @@
-class Departement {
-    private employees: string[]
+/* eslint-disable prefer-destructuring */
 
-    constructor(
-        private readonly id: string,
+type Describe = {
+    name: string
+    id: string
+}
+abstract class Departement {
+  private employees: string[];
+
+  static fiscalYear = 2021;
+
+  get employeeInformation() {
+    return this.employees;
+  }
+
+  constructor(
+        protected readonly id: string,
         public name: string,
-    ) {
-        this.employees = [];
-    }
+  ) {
+    this.employees = [];
+  }
 
-    describe(this: Departement) {
-        return {
-            name: this.name,
-            id: this.id
-        };
-    }
+  static newYear(year: number) {
+    return this.fiscalYear + year;
+  }
 
-    addEmployee(this: Departement, name: string | string[]) {
-        if (!(name instanceof Array)){
-            this.employees.push(name);
-        }  else{
-            this.employees = [
-                ...this.employees,
-                ...name
-            ]
-        }     
-    }
+  abstract describe(this: Departement): Partial<Describe>;
 
-    employeeInformation(this: Departement) {
-        return this.employees;
+  addEmployee(this: Departement, name: string | string[]) {
+    if (!(name instanceof Array)) {
+      this.employees.push(name);
+    } else {
+      this.employees = [
+        ...this.employees,
+        ...name
+      ];
     }
-
+  }
 }
 
+interface Admin extends Describe {
+    admins: string[];
+}
 class ITDepartement extends Departement {
-    constructor(id: string, public admins: string[]){
-        super(id, 'IT')
+  private static instance: ITDepartement;
+
+  private constructor(id: string, private admins: string[]) {
+    super(id, 'IT');
+  }
+
+  describe(this: ITDepartement): Partial<Admin> {
+    return {
+      name: this.name,
+      admins: this.admins,
+    };
+  }
+
+  static getInstance(id: string, admins: string[]) {
+    if (this.instance) {
+      return this.instance;
     }
+    this.instance = new ITDepartement(id, admins);
+    return this.instance;
+  }
 }
 
 class AccountingDepartment extends Departement {
-    reports: string[];
-    lastReport: string;
+  private reports: string[];
 
-    get mostRecentReports() {
-        if (this.lastReport) {
-            return this.lastReport
-        }
-        throw new Error('Report not found!')
-    }
+  private lastReport: string;
 
-    set mostRecentReports(value: string) {
-        if (value) {
-            throw new Error('Passed valid value')
-        }
-        this.addReports(value);
-    }
+  constructor(id: string) {
+    super(id, 'Accounting');
+    this.reports = [];
+    this.lastReport = this.reports[0];
+  }
 
-    constructor(id: string){
-        super(id, 'Accounting')
-        this.reports = []
-        this.lastReport = this.reports[0]
-    }
+  get returnReports() {
+    return this.reports;
+  }
 
-    addReports(this: AccountingDepartment, newReports: string | string[]) {
-        if (!(newReports instanceof Array)){
-            this.reports.push(newReports);
-        }  else{
-            this.reports = [
-                ...this.reports,
-                ...newReports
-            ]
-        }     
+  get mostRecentReports() {
+    if (this.lastReport) {
+      return this.lastReport;
     }
+    throw new Error('Report not found!');
+  }
 
-    returnReports(this: AccountingDepartment) {
-        return this.reports
+  set mostRecentReports(value: string) {
+    if (!value) {
+      throw new Error('Passed valid value');
     }
+    this.addReports(value);
+  }
+
+  describe(this: AccountingDepartment): Describe {
+    return {
+      name: this.name,
+      id: this.id
+    };
+  }
+
+  addReports(this: AccountingDepartment, newReports: string | string[]) {
+    if (!(newReports instanceof Array)) {
+      this.reports.push(newReports);
+    } else {
+      this.reports = [
+        ...this.reports,
+        ...newReports
+      ];
+    }
+  }
 }
 
 export {
-    AccountingDepartment,
-    ITDepartement
-}
-
-
+  Departement,
+  AccountingDepartment,
+  ITDepartement
+};
