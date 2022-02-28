@@ -1,1 +1,12 @@
-module.exports = { presets: ['@babel/preset-env'] };
+module.exports = {
+  presets: [
+    ['@babel/preset-env'],
+    ['@babel/preset-typescript']
+  ],
+  plugins: [
+    ['@babel/plugin-proposal-decorators', { legacy: true }]
+  ],
+  ignore: ['node_modules'],
+  comments: false,
+  minified: true
+};

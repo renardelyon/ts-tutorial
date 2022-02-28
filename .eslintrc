@@ -26,7 +26,7 @@
         "radix": "off",
         "max-classes-per-file": [
             "error",
-            { "ignoreExpressions": true, "max": 3 }
+            { "ignoreExpressions": true, "max": 10 }
         ],
         // starting from here to below are rules to warn error by airbnb, next will be removed
         "max-len": 1,
