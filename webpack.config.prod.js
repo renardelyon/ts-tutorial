@@ -20,7 +20,14 @@ module.exports = {
     ],
   },
   resolve: {
-    extensions: ['.ts', '.js']
+    extensions: ['.ts', '.js'],
+    alias: {
+      '@decorators': path.resolve(__dirname, './src/decorators'),
+      '@state': path.resolve(__dirname, './src/state'),
+      '@templateClass': path.resolve(__dirname, './src/templateClass'),
+      '@models': path.resolve(__dirname, './src/models'),
+      '@components': path.resolve(process.cwd(), './src/components')
+    },
   },
   plugins: [
     new CleanPlugin.CleanWebpackPlugin()

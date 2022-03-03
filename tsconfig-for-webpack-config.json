@@ -1,0 +1,12 @@
+{
+    "compilerOptions": {
+        "baseUrl": "./src/",
+        "paths": {
+          "@decorators/*": ["decorators/*"],
+          "@state/*": ["state/*"],
+          "@templateClass/*": ["templateClass/*"],
+          "@models/*": ["models/*"],
+         " @components/*": ["components/*"]
+        }
+      }
+}
