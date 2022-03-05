@@ -7,7 +7,6 @@ module.exports = {
   output: {
     filename: 'bundle.js',
     path: path.resolve(__dirname, 'dist'),
-    publicPath: '/dist'
   },
   devtool: 'inline-source-map',
   module: {
@@ -16,6 +15,13 @@ module.exports = {
         test: /\.ts$/,
         use: 'ts-loader',
         exclude: /node_modules/
+      },
+      {
+        test: /\.css$/,
+        use: [
+          'style-loader',
+          'css-loader'
+        ]
       }
     ],
   },
@@ -31,11 +37,20 @@ module.exports = {
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: './index.html'
+      inject: 'body',
+      template: path.resolve(__dirname, 'index.html'),
+      filename: 'index.html'
+    }),
+    new HtmlWebpackPlugin({
+      template: path.resolve(__dirname, 'map.html'),
+      filename: 'map.html'
     })
   ],
   devServer: {
     historyApiFallback: true,
-    static: path.resolve(__dirname, 'dist')
+    static: {
+      directory: path.join(__dirname, 'dist'),
+      publicPath: 'http://localhost:8080/'
+    },
   },
 };
